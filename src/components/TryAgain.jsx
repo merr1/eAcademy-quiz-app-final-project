@@ -24,13 +24,15 @@ const TryAgain = ({ score, question }) => {
 
     arr.push({
       time: string,
-      date: new Date().getTime(),
+
       scoree: score,
       question_lengh: question.length,
     });
 
     let sorted = arr.sort((a, b) => {
-      return b.scoree === a.scoree ? b.date - a.date : b.scoree - a.scoree;
+      return b.scoree - a.scoree === 0
+        ? -(new Date(a.time).getTime() - new Date(b.time).getTime())
+        : b.scoree - a.scoree;
     });
     console.log(sorted);
     localStorage.setItem("myArray", JSON.stringify(sorted));
