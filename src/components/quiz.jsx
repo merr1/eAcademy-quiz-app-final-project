@@ -1,6 +1,6 @@
 import React from "react";
 
 const Quiz = () => {
-  return <div>quiz</div>;
+  return <div class="quiz-page">develop</div>;
 };
 export default Quiz;
