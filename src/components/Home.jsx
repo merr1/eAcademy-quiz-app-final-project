@@ -5,8 +5,8 @@ const Home = () => {
   const changeRoute = () => history.push("/quiz");
 
   return (
-    <div class="home-page">
-      <div class="button" onClick={changeRoute}>
+    <div className="home-page">
+      <div className="button" onClick={changeRoute}>
         start
       </div>
     </div>
