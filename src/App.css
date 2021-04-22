@@ -22,6 +22,7 @@ body {
   width: 100vw;
   display: flex;
   justify-content: flex-end;
+  justify-content: space-around;
   align-items: center;
 }
 .button {
@@ -56,4 +57,74 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+.pop {
+  position: absolute;
+  top: 0;
+  height: 10vh;
+  width: 30vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: darkgray;
+}
+.buttons {
+  height: 15vh;
+  width: fit-content;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+table {
+  width: 100%;
+  height: fit-content;
+  margin: 20px;
+}
+
+tr {
+  width: 30%;
+}
+.title {
+  background-color: #28a745;
+  color: white;
+}
+img {
+  height: 30px;
+}
+.menu {
+  position: absolute;
+  background: linear-gradient(to bottom, #fff 0%, #e5e5e5 100px, #e5e5e5 100%);
+  height: fit-content;
+  width: 10vw;
+  min-width: fit-content;
+  left: 55%;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+.delete {
+  margin-bottom: 20px;
+  margin-left: 20px;
+  width: 60%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.delete:hover {
+  font-weight: 900;
+  background: #abc4ff;
+  border-radius: 10px;
 }

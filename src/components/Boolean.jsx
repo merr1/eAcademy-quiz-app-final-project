@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup, Progress } from "reactstrap";
 
-const Single = ({
+const Boolean = ({
   question,
   answer,
   qurrentId,
@@ -12,43 +12,48 @@ const Single = ({
 }) => {
   const [isCorect, setIsCorect] = useState(null);
   const [Selected, setSelected] = useState(null);
-  const check = (id) => {
-    id + 1 === answer.answer ? setIsCorect("#32CD32") : setIsCorect("#FF6347");
+  const check = (bool) => {
+    bool === answer.answer ? setIsCorect("#32CD32") : setIsCorect("#FF6347");
   };
   const qula = () => {
     isCorect === "#32CD32" ? setScore(score + 1) : setScore(score);
   };
-
   return (
     <div>
       <Progress value={((qurrentId + 1) / questions.length) * 100}>
         {qurrentId + 1}/{questions.length}
       </Progress>
       <div className="quiz-page" style={{ backgroundColor: isCorect }}>
+        <h2 className="question">{question.question}</h2>
         <div>
-          <h2 className="question">{question.question}</h2>
-        </div>
-        <ButtonGroup>
-          {question.options.map((item, idx) => (
+          <ButtonGroup>
             <Button
-              key={idx}
               color="primary"
               onClick={() => {
-                setSelected(idx + 1);
-                check(idx);
+                setSelected(0 + 1);
+                check(true);
               }}
-              active={Selected === idx + 1}
+              active={Selected === 0 + 1}
             >
-              {item}
+              true
             </Button>
-          ))}
-        </ButtonGroup>
-        <p>Selected: {Selected}</p>
+            <Button
+              color="primary"
+              onClick={() => {
+                setSelected(0 + 1);
+                check(false);
+              }}
+              active={Selected === 1 + 1}
+            >
+              false
+            </Button>
+          </ButtonGroup>
+        </div>
       </div>
       <Button
         onClick={() => {
-          qula();
           click();
+          qula();
         }}
         outline
         color="success"
@@ -58,4 +63,4 @@ const Single = ({
     </div>
   );
 };
-export default Single;
+export default Boolean;
