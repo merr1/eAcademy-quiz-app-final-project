@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
-let arr = [];
+
 const TryAgain = ({ score, question }) => {
   const [IsAgain, setIsAgain] = useState(false);
   const [scores, setScore] = useState([null]);
@@ -13,6 +13,7 @@ const TryAgain = ({ score, question }) => {
 
   const changeRoute = (page) => history.push(page);
   const addLocalstorige = () => {
+    let arr = JSON.parse(localStorage.getItem("myArray")) || [];
     arr.push({ time: Date().toLocaleString(), scoree: score });
     localStorage.setItem("myArray", JSON.stringify(arr));
   };

@@ -12,6 +12,16 @@ const History = () => {
     arr = JSON.parse(arr);
     setLocal(arr);
   }, []);
+  const removeItemFromStorage = (item) => {
+    let arr = localStorage.getItem("myArray");
+    arr = JSON.parse(arr);
+    setLocal(arr.filter((list) => list.time !== item));
+    localStorage.clear();
+    localStorage.setItem(
+      "myArray",
+      JSON.stringify(arr.filter((list) => list.time !== item))
+    );
+  };
 
   return (
     <div>
@@ -30,8 +40,7 @@ const History = () => {
               id={idx + 1}
               time={item.time}
               score={item.scoree}
-              local={local}
-              setLocal={setLocal}
+              removeItemFromStorage={removeItemFromStorage}
             />
           ))}
       </table>
