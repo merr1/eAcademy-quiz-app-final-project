@@ -5,11 +5,11 @@ const CustomMenu = ({ listItemRef, open, id, local, setLocal }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const deleteOnClick = () => {
-    let newArr = newArr.splice(id - 1, 1);
+    let newArr = [...local];
+    newArr = newArr.splice(id - 1, 1);
     setLocal(newArr);
     localStorage.clear();
     localStorage.setItem("myArray", JSON.stringify(newArr));
-
     setIsOpen(false);
   };
   useEffect(() => {
