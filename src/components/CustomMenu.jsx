@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import del from "../img/delete.svg";
 
-const CustomMenu = ({ listItemRef, open }) => {
+const CustomMenu = ({ listItemRef, open, id, local, setLocal }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const deleteOnClick = () => {
-    alert("meri");
+    let newArr = newArr.splice(id - 1, 1);
+    setLocal(newArr);
+    localStorage.clear();
+    localStorage.setItem("myArray", JSON.stringify(newArr));
+
     setIsOpen(false);
   };
   useEffect(() => {
@@ -28,7 +32,7 @@ const CustomMenu = ({ listItemRef, open }) => {
 
   return isOpen ? (
     <div className="menu">
-      <div className="delete" onClick={() => deleteOnClick}>
+      <div className="delete" onClick={() => deleteOnClick()}>
         <img className="icon" src={del} alt="delete icon" />
         <span>delete</span>
       </div>

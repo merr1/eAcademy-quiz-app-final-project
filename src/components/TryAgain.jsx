@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
-const scores = [];
+let arr = [];
 const TryAgain = ({ score, question }) => {
   const [IsAgain, setIsAgain] = useState(false);
+  const [scores, setScore] = useState([null]);
 
   const tryagain = () => {
     IsAgain === false ? setIsAgain(true) : setIsAgain(false);
   };
   const history = useHistory();
+
   const changeRoute = (page) => history.push(page);
   const addLocalstorige = () => {
-    scores.push({ time: Date().toLocaleString(), scoree: score });
-    localStorage.setItem("myArray", JSON.stringify(scores));
+    arr.push({ time: Date().toLocaleString(), scoree: score });
+    localStorage.setItem("myArray", JSON.stringify(arr));
   };
 
   return (
