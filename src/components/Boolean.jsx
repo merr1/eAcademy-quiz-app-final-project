@@ -26,8 +26,9 @@ const Boolean = ({
       <div className="quiz-page" style={{ backgroundColor: isCorect }}>
         <h2 className="question">{question.question}</h2>
         <div>
-          <ButtonGroup>
+          <ButtonGroup className="column">
             <Button
+              className="mt"
               color="primary"
               onClick={() => {
                 setSelected(0 + 1);
@@ -38,6 +39,7 @@ const Boolean = ({
               true
             </Button>
             <Button
+              className="mt"
               color="primary"
               onClick={() => {
                 setSelected(0 + 1);

@@ -25,24 +25,27 @@ const History = () => {
 
   return (
     <div>
-      <div>istoriis gverdze xar</div>
       <table>
-        <tr>
-          <th>#</th>
-          <th>date</th>
-          <th>score</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>date</th>
+            <th>score</th>
+          </tr>
+        </thead>
 
-        {local &&
-          local.map((item, idx) => (
-            <ContextList
-              key={idx}
-              id={idx + 1}
-              time={item.time}
-              score={item.scoree}
-              removeItemFromStorage={removeItemFromStorage}
-            />
-          ))}
+        <tbody>
+          {local &&
+            local.map((item, idx) => (
+              <ContextList
+                key={idx}
+                id={idx + 1}
+                time={item.time}
+                score={item.scoree}
+                removeItemFromStorage={removeItemFromStorage}
+              />
+            ))}
+        </tbody>
       </table>
       <Button onClick={changeRoute} size="lg" outline color="success">
         go home

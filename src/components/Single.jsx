@@ -28,9 +28,10 @@ const Single = ({
         <div>
           <h2 className="question">{question.question}</h2>
         </div>
-        <ButtonGroup>
+        <ButtonGroup className="column">
           {question.options.map((item, idx) => (
             <Button
+              className="mt"
               key={idx}
               color="primary"
               onClick={() => {

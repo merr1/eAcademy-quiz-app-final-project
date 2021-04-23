@@ -63,7 +63,7 @@ const Quiz = () => {
     )
   ) : (
     <div className="home-page">
-      <Spinner style={{ width: "4rem", height: "4rem" }} />{" "}
+      <Spinner style={{ width: "4rem", height: "4rem", color: "#28a745" }} />{" "}
     </div>
   );
 };
