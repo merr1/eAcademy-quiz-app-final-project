@@ -14,14 +14,11 @@ const Boolean = ({
   const [isCorect, setIsCorect] = useState(null);
   const [Selected, setSelected] = useState(null);
   const [next, setNext] = useState(false);
-  const check = () => {
-    Selected === `${answer.answer}`
-      ? setIsCorect("corect")
-      : setIsCorect("notcorect");
-  };
-  const qula = () => {
-    isCorect === "corect" ? setScore(score + 1) : setScore(score);
-  };
+  const check = () =>
+    setIsCorect(Selected === `${answer.answer}` ? "corect" : "notcorect");
+
+  const qula = () => setScore(isCorect === "corect" ? score + 1 : score);
+
   return (
     <div>
       <Progress value={((qurrentId + 1) / questions.length) * 100}>
@@ -61,7 +58,6 @@ const Boolean = ({
         {!next ? (
           <Button
             onClick={() => {
-              qula();
               check();
               setNext(!next);
             }}
@@ -73,6 +69,7 @@ const Boolean = ({
         ) : (
           <Button
             onClick={() => {
+              qula();
               click();
             }}
             outline

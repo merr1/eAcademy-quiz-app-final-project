@@ -17,27 +17,18 @@ const Multiple = ({
 
   const onCheck = (selected) => {
     const index = Selected.indexOf(selected);
-    if (index < 0) {
-      Selected.push(selected);
-    } else {
-      Selected.splice(index, 1);
-    }
+    index < 0 ? Selected.push(selected) : Selected.splice(index, 1);
     setSelected([...Selected]);
   };
+
   const check = () => {
-    (answer.answer[0] === Selected[0] || answer.answer[0] === Selected[1]) &&
-    (answer.answer[1] === Selected[0] || answer.answer[1] === Selected[1])
+    answer.answer.length === Selected.length &&
+    Selected.every((item) => answer.answer.indexOf(item) > -1)
       ? setIsCorect("corect")
       : setIsCorect("notcorect");
   };
-  const qula = () => {
-    if (
-      (answer.answer[0] === Selected[0] || answer.answer[0] === Selected[1]) &&
-      (answer.answer[1] === Selected[0] || answer.answer[1] === Selected[1])
-    ) {
-      setScore(score + 1);
-    }
-  };
+  const qula = () => setScore(isCorect === "corect" ? score + 1 : score);
+
   return (
     <div>
       <Progress value={((qurrentId + 1) / questions.length) * 100}>
@@ -67,7 +58,6 @@ const Multiple = ({
         {!next ? (
           <Button
             onClick={() => {
-              qula();
               check();
               setNext(!next);
             }}
@@ -79,6 +69,7 @@ const Multiple = ({
         ) : (
           <Button
             onClick={() => {
+              qula();
               click();
             }}
             outline

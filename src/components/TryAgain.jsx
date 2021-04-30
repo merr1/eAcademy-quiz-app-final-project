@@ -29,11 +29,7 @@ const TryAgain = ({ score, question }) => {
   };
   useEffect(() => {
     const IsOutsideClick = (event) => {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(event.target) &&
-        IsAgain
-      )
+      if (!popupRef.current?.contains(event.target) && IsAgain)
         setIsAgain(false);
     };
     document.addEventListener("click", IsOutsideClick);

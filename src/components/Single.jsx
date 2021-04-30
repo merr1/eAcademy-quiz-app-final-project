@@ -19,9 +19,7 @@ const Single = ({
       ? setIsCorect("corect")
       : setIsCorect("notcorect");
   };
-  const qula = () => {
-    isCorect === "corect" ? setScore(score + 1) : setScore(score);
-  };
+  const qula = () => setScore(isCorect === "corect" ? score + 1 : score);
 
   return (
     <div className="home-page">
@@ -56,7 +54,6 @@ const Single = ({
       {!next ? (
         <Button
           onClick={() => {
-            qula();
             check();
             setNext(!next);
           }}
@@ -68,6 +65,7 @@ const Single = ({
       ) : (
         <Button
           onClick={() => {
+            qula();
             click();
           }}
           outline

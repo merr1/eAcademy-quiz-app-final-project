@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import del from "../img/delete.svg";
 
-const CustomMenu = ({ listItemRef, open, id, removeItemFromStorage, time }) => {
+const CustomMenu = ({ listItemRef, open, removeItemFromStorage, time }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const deleteOnClick = () => {
     removeItemFromStorage(time);
-
     setIsOpen(false);
   };
   useEffect(() => {
@@ -21,7 +20,6 @@ const CustomMenu = ({ listItemRef, open, id, removeItemFromStorage, time }) => {
   };
   useEffect(() => {
     document.addEventListener("click", CloseContextMenu);
-
     return () => {
       document.removeEventListener("click", CloseContextMenu);
     };
