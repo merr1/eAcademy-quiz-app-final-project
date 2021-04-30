@@ -41,6 +41,7 @@ const History = () => {
                 id={idx + 1}
                 time={item.time}
                 score={item.scoree}
+                question_lengh={item.question_lengh}
                 removeItemFromStorage={removeItemFromStorage}
               />
             ))}

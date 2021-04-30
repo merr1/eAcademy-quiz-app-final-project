@@ -21,12 +21,17 @@ const TryAgain = ({ score, question }) => {
       month: "numeric",
       hour12: false,
     });
-    arr.unshift({ time: string, scoree: score });
+    arr.unshift({
+      time: string,
+      scoree: score,
+      question_lengh: question.length,
+    });
     arr.sort(function (a, b) {
       return b.scoree - a.scoree;
     });
     localStorage.setItem("myArray", JSON.stringify(arr));
   };
+
   useEffect(() => {
     const IsOutsideClick = (event) => {
       if (!popupRef.current?.contains(event.target) && IsAgain)
