@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "reactstrap";
 import ClipLoader from "react-spinners/SyncLoader";
 const Home = () => {
   const history = useHistory();
