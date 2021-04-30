@@ -21,13 +21,16 @@ const TryAgain = ({ score, question }) => {
       month: "numeric",
       hour12: false,
     });
+
     arr.unshift({
       time: string,
       scoree: score,
       question_lengh: question.length,
     });
     arr.sort(function (a, b) {
-      return b.scoree - a.scoree;
+      return b.scoree - a.scoree === 0
+        ? a.time.getTime() - b.time.getTime()
+        : b.scoree - a.scoree;
     });
     localStorage.setItem("myArray", JSON.stringify(arr));
   };

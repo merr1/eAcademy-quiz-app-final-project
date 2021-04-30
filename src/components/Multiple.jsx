@@ -22,10 +22,13 @@ const Multiple = ({
   };
 
   const check = () => {
-    answer.answer.length === Selected.length &&
-    Selected.every((item) => answer.answer.indexOf(item) > -1)
-      ? setIsCorect("corect")
-      : setIsCorect("notcorect");
+    if (Selected.length !== 0) {
+      setNext(!next);
+      answer.answer.length === Selected.length &&
+      Selected.every((item) => answer.answer.indexOf(item) > -1)
+        ? setIsCorect("corect")
+        : setIsCorect("notcorect");
+    }
   };
   const qula = () => setScore(isCorect === "corect" ? score + 1 : score);
 
@@ -59,7 +62,6 @@ const Multiple = ({
           <Button
             onClick={() => {
               check();
-              setNext(!next);
             }}
             outline
             style={{ backgroundColor: "#ef6f6e", color: "white" }}

@@ -15,9 +15,13 @@ const Single = ({
   const [Selected, setSelected] = useState(null);
   const [next, setNext] = useState(false);
   const check = () => {
-    Selected === answer.answer
-      ? setIsCorect("corect")
-      : setIsCorect("notcorect");
+    if (Selected) {
+      setNext(!next);
+
+      Selected !== answer.answer
+        ? setIsCorect("notcorect")
+        : setIsCorect("corect");
+    }
   };
   const qula = () => setScore(isCorect === "corect" ? score + 1 : score);
 
@@ -55,7 +59,6 @@ const Single = ({
         <Button
           onClick={() => {
             check();
-            setNext(!next);
           }}
           outline
           style={{ backgroundColor: "#ef6f6e", color: "white" }}

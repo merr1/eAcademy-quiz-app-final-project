@@ -19,15 +19,16 @@ const Home = () => {
   useEffect(() => {
     const getLatestScore = () => {
       let arr = JSON.parse(localStorage.getItem("myArray"));
-      if (arr) {
-        arr.sort((a, b) => b.time.localeCompare(a.time));
-        setLocal(arr);
-        arr ? setIsTrue(true) : setIsTrue(false);
+      if ((arr = [])) {
+        getData();
+        arr = JSON.parse(localStorage.getItem("myArray"));
       }
+      arr.sort((a, b) => b.time.localeCompare(a.time));
+      setLocal(arr);
+      arr ? setIsTrue(true) : setIsTrue(false);
     };
 
     getLatestScore();
-    getData();
   }, []);
 
   return question ? (

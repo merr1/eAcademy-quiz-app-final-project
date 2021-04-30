@@ -14,8 +14,12 @@ const Boolean = ({
   const [isCorect, setIsCorect] = useState(null);
   const [Selected, setSelected] = useState(null);
   const [next, setNext] = useState(false);
-  const check = () =>
-    setIsCorect(Selected === `${answer.answer}` ? "corect" : "notcorect");
+  const check = () => {
+    if (Selected.length !== 0 || Selected) {
+      setNext(!next);
+      setIsCorect(Selected === `${answer.answer}` ? "corect" : "notcorect");
+    }
+  };
 
   const qula = () => setScore(isCorect === "corect" ? score + 1 : score);
 
@@ -59,7 +63,6 @@ const Boolean = ({
           <Button
             onClick={() => {
               check();
-              setNext(!next);
             }}
             outline
             style={{ backgroundColor: "#ef6f6e", color: "white" }}
