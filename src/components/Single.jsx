@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router";
 import { Button, ButtonGroup, Progress } from "reactstrap";
 
 const Single = ({
@@ -9,53 +10,73 @@ const Single = ({
   click,
   score,
   setScore,
+  length,
 }) => {
   const [isCorect, setIsCorect] = useState(null);
   const [Selected, setSelected] = useState(null);
-  const check = (id) => {
-    id + 1 === answer.answer ? setIsCorect("#32CD32") : setIsCorect("#FF6347");
+  const [next, setNext] = useState(false);
+  const check = () => {
+    Selected === answer.answer
+      ? setIsCorect("corect")
+      : setIsCorect("notcorect");
   };
   const qula = () => {
-    isCorect === "#32CD32" ? setScore(score + 1) : setScore(score);
+    isCorect === "corect" ? setScore(score + 1) : setScore(score);
   };
 
   return (
-    <div>
-      <Progress value={((qurrentId + 1) / questions.length) * 100}>
-        {qurrentId + 1}/{questions.length}
-      </Progress>
-      <div className="quiz-page" style={{ backgroundColor: isCorect }}>
+    <div className="home-page">
+      <div className="quiz">
+        <Progress value={((qurrentId + 1) / questions.length) * 100}>
+          {qurrentId + 1}/{questions.length}
+        </Progress>
+      </div>
+
+      <div className={`quiz-page ${isCorect}`}>
         <div>
           <h2 className="question">{question.question}</h2>
         </div>
-        <ButtonGroup className="column">
+        <div className="column">
           {question.options.map((item, idx) => (
             <Button
               className="mt"
+              color="warning"
               key={idx}
-              color="primary"
               onClick={() => {
                 setSelected(idx + 1);
-                check(idx);
               }}
               active={Selected === idx + 1}
+              disabled={next}
             >
               {item}
             </Button>
           ))}
-        </ButtonGroup>
+        </div>
         <p>Selected: {Selected}</p>
       </div>
-      <Button
-        onClick={() => {
-          qula();
-          click();
-        }}
-        outline
-        color="success"
-      >
-        next
-      </Button>
+      {!next ? (
+        <Button
+          onClick={() => {
+            qula();
+            check();
+            setNext(!next);
+          }}
+          outline
+          style={{ backgroundColor: "#ef6f6e", color: "white" }}
+        >
+          submit
+        </Button>
+      ) : (
+        <Button
+          onClick={() => {
+            click();
+          }}
+          outline
+          style={{ backgroundColor: "#ef6f6e", color: "white" }}
+        >
+          {qurrentId === length ? <span>finish</span> : <span>next</span>}
+        </Button>
+      )}
     </div>
   );
 };

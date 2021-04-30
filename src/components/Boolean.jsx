@@ -9,59 +9,79 @@ const Boolean = ({
   click,
   score,
   setScore,
+  length,
 }) => {
   const [isCorect, setIsCorect] = useState(null);
   const [Selected, setSelected] = useState(null);
-  const check = (bool) => {
-    bool === answer.answer ? setIsCorect("#32CD32") : setIsCorect("#FF6347");
+  const [next, setNext] = useState(false);
+  const check = () => {
+    Selected === `${answer.answer}`
+      ? setIsCorect("corect")
+      : setIsCorect("notcorect");
   };
   const qula = () => {
-    isCorect === "#32CD32" ? setScore(score + 1) : setScore(score);
+    isCorect === "corect" ? setScore(score + 1) : setScore(score);
   };
   return (
     <div>
       <Progress value={((qurrentId + 1) / questions.length) * 100}>
         {qurrentId + 1}/{questions.length}
       </Progress>
-      <div className="quiz-page" style={{ backgroundColor: isCorect }}>
+      <div className={`quiz-page ${isCorect}`}>
         <h2 className="question">{question.question}</h2>
         <div>
           <ButtonGroup className="column">
             <Button
               className="mt"
-              color="primary"
+              color="warning"
+              style={{ borderRadius: "7px" }}
               onClick={() => {
-                setSelected(0 + 1);
-                check(true);
+                setSelected("true");
               }}
-              active={Selected === 0 + 1}
+              disabled={next}
             >
               true
             </Button>
             <Button
               className="mt"
-              color="primary"
+              color="warning"
+              style={{ borderRadius: "7px" }}
               onClick={() => {
-                setSelected(0 + 1);
-                check(false);
+                setSelected("false");
               }}
-              active={Selected === 1 + 1}
+              disabled={next}
             >
               false
             </Button>
           </ButtonGroup>
         </div>
+        <p>selected: {Selected}</p>
       </div>
-      <Button
-        onClick={() => {
-          click();
-          qula();
-        }}
-        outline
-        color="success"
-      >
-        next
-      </Button>
+      <div className="center">
+        {!next ? (
+          <Button
+            onClick={() => {
+              qula();
+              check();
+              setNext(!next);
+            }}
+            outline
+            style={{ backgroundColor: "#ef6f6e", color: "white" }}
+          >
+            submit
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              click();
+            }}
+            outline
+            style={{ backgroundColor: "#ef6f6e", color: "white" }}
+          >
+            {qurrentId + 1 === length ? <span>finsih</span> : <span>next</span>}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

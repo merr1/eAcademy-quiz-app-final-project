@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
+import ClipLoader from "react-spinners/SyncLoader";
 const Home = () => {
   const history = useHistory();
   const [local, setLocal] = useState([null]);
   const [isTrue, setIsTrue] = useState(false);
+  const [question, setQuestion] = useState(null);
   const changeRoute = (route) => history.push(route);
 
   const getLatestScore = () => {
@@ -15,37 +17,38 @@ const Home = () => {
       local ? setIsTrue(true) : setIsTrue(false);
     }
   };
+  const getData = async () => {
+    const response = await fetch(
+      "http://my-json-server.typicode.com/DanielBarbakadze/Advanced-JS-and-React-Basics/db"
+    );
+    const data = await response.json();
+    return setQuestion(data.questions.length);
+  };
 
   useEffect(() => {
     getLatestScore();
+    getData();
   }, []);
 
-  return (
+  return question ? (
     <div className="home-page">
-      {isTrue && (
+      <div className="buttons">
+        <button className="button" onClick={() => changeRoute("/quiz")}>
+          START
+        </button>
+        <button className="button" onClick={() => changeRoute("/history")}>
+          HISTORY
+        </button>
+      </div>
+      {isTrue && local.length !== 0 && (
         <div className="latest">
-          score: {local[0].scoree} | time:{local[0].time}
+          score: {local[0].scoree}/{question} | {local[0].time}
         </div>
       )}
-
-      <div className="buttons">
-        <Button
-          onClick={() => changeRoute("/quiz")}
-          size="lg"
-          outline
-          color="success"
-        >
-          start
-        </Button>
-        <Button
-          onClick={() => changeRoute("/history")}
-          size="lg"
-          outline
-          color="success"
-        >
-          see history
-        </Button>
-      </div>
+    </div>
+  ) : (
+    <div className="home-page">
+      <ClipLoader color="#f56b6c" size={15} />
     </div>
   );
 };

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
 
 const TryAgain = ({ score, question }) => {
   const [IsAgain, setIsAgain] = useState(false);
+  const popupRef = useRef(null);
 
   const tryagain = () => {
     IsAgain === false ? setIsAgain(true) : setIsAgain(false);
@@ -26,50 +27,67 @@ const TryAgain = ({ score, question }) => {
     });
     localStorage.setItem("myArray", JSON.stringify(arr));
   };
+  useEffect(() => {
+    const IsOutsideClick = (event) => {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(event.target) &&
+        IsAgain
+      )
+        setIsAgain(false);
+    };
+    document.addEventListener("click", IsOutsideClick);
+    return () => {
+      document.removeEventListener("click", IsOutsideClick);
+    };
+  });
 
   return (
     <div className="endQuiz">
       <div className="score">
-        <p>testi dasrulebulia sheni qula: </p>
+        <p>Your score: </p>
 
         <p>
           {score}/{question.length}
         </p>
       </div>
       <div className="column">
-        <Button
-          className="mt"
-          outline
-          color="success"
-          onClick={() => tryagain()}
+        <button className="button" onClick={() => tryagain()}>
+          TRY AGAIN
+        </button>
+        <button
+          className="button"
+          onClick={() => {
+            addLocalstorige();
+            changeRoute("/history");
+          }}
         >
-          try again
-        </Button>
-        <Button
-          className="mt"
-          outline
-          color="success"
-          onClick={() => changeRoute("/history")}
-        >
-          See Attempts History
-        </Button>
+          SEE ATTEMPTS HISTORY
+        </button>
         {IsAgain && (
-          <div className="pop">
-            <div> Do you want to save this attempt?</div>
-            <div>
-              <Button outline color="info" onClick={() => changeRoute("/")}>
-                no
-              </Button>
-              <Button
-                outline
-                color="info"
-                onClick={() => {
-                  addLocalstorige();
-                  changeRoute("/");
-                }}
-              >
-                yes
-              </Button>
+          <div className="popContainer">
+            <div className="pop" ref={popupRef}>
+              <div> Do you want to save this attempt?</div>
+              <div>
+                <Button
+                  outline
+                  color="warning"
+                  style={{ margin: "10px" }}
+                  onClick={() => changeRoute("/")}
+                >
+                  NO
+                </Button>
+                <Button
+                  outline
+                  color="warning"
+                  onClick={() => {
+                    addLocalstorige();
+                    changeRoute("/");
+                  }}
+                >
+                  YES
+                </Button>
+              </div>
             </div>
           </div>
         )}

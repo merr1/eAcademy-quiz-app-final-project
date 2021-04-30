@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import Single from "./Single";
 import Multiple from "./Multiple";
 import Boolean from "./Boolean";
-import { Spinner } from "reactstrap";
-
+import ClipLoader from "react-spinners/SyncLoader";
 import TryAgain from "./TryAgain";
+
 const API_URL =
   "http://my-json-server.typicode.com/DanielBarbakadze/Advanced-JS-and-React-Basics/db";
 
@@ -27,7 +27,7 @@ const Quiz = () => {
       "data",
       JSON.stringify({
         value: data,
-        expiry: now.getTime() + 60000,
+        expiry: now.getTime() + 600000,
       })
     );
   };
@@ -66,44 +66,49 @@ const Quiz = () => {
   };
 
   return answer ? (
-    qurrentId < question.length ? (
-      question[qurrentId].type === "single" ? (
-        <Single
-          question={question[qurrentId]}
-          click={next}
-          answer={answer[qurrentId]}
-          qurrentId={qurrentId}
-          questions={question}
-          score={score}
-          setScore={setScore}
-        />
-      ) : question[qurrentId].type === "multiple" ? (
-        <Multiple
-          question={question[qurrentId]}
-          click={next}
-          answer={answer[qurrentId]}
-          qurrentId={qurrentId}
-          questions={question}
-          score={score}
-          setScore={setScore}
-        />
+    <div className="home-page">
+      {qurrentId < question.length ? (
+        question[qurrentId].type === "single" ? (
+          <Single
+            question={question[qurrentId]}
+            click={next}
+            answer={answer[qurrentId]}
+            qurrentId={qurrentId}
+            questions={question}
+            score={score}
+            setScore={setScore}
+            length={question.length}
+          />
+        ) : question[qurrentId].type === "multiple" ? (
+          <Multiple
+            question={question[qurrentId]}
+            click={next}
+            answer={answer[qurrentId]}
+            qurrentId={qurrentId}
+            questions={question}
+            score={score}
+            setScore={setScore}
+            length={question.length}
+          />
+        ) : (
+          <Boolean
+            question={question[qurrentId]}
+            click={next}
+            answer={answer[qurrentId]}
+            qurrentId={qurrentId}
+            questions={question}
+            score={score}
+            setScore={setScore}
+            length={question.length}
+          />
+        )
       ) : (
-        <Boolean
-          question={question[qurrentId]}
-          click={next}
-          answer={answer[qurrentId]}
-          qurrentId={qurrentId}
-          questions={question}
-          score={score}
-          setScore={setScore}
-        />
-      )
-    ) : (
-      <TryAgain score={score} question={question} />
-    )
+        <TryAgain score={score} question={question} />
+      )}
+    </div>
   ) : (
     <div className="home-page">
-      <Spinner style={{ width: "4rem", height: "4rem", color: "#28a745" }} />{" "}
+      <ClipLoader size={15} />
     </div>
   );
 };

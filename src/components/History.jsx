@@ -24,13 +24,13 @@ const History = () => {
   };
 
   return (
-    <div>
+    <div className="home-page">
       <table>
         <thead>
-          <tr>
-            <th>#</th>
+          <tr className="head">
+            <th className="id">#</th>
             <th>date</th>
-            <th>score</th>
+            <th className="scor">score</th>
           </tr>
         </thead>
 
@@ -47,9 +47,9 @@ const History = () => {
             ))}
         </tbody>
       </table>
-      <Button onClick={changeRoute} size="lg" outline color="success">
-        go home
-      </Button>
+      <button onClick={changeRoute} className="button">
+        GO HOME
+      </button>
     </div>
   );
 };
