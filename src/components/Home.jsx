@@ -8,14 +8,6 @@ const Home = () => {
   const [question, setQuestion] = useState(null);
   const changeRoute = (route) => history.push(route);
 
-  const getLatestScore = () => {
-    let arr = JSON.parse(localStorage.getItem("myArray"));
-    if (arr) {
-      arr.sort((a, b) => b.time.localeCompare(a.time));
-      setLocal(arr);
-      local ? setIsTrue(true) : setIsTrue(false);
-    }
-  };
   const getData = async () => {
     const response = await fetch(
       "http://my-json-server.typicode.com/DanielBarbakadze/Advanced-JS-and-React-Basics/db"
@@ -25,6 +17,15 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const getLatestScore = () => {
+      let arr = JSON.parse(localStorage.getItem("myArray"));
+      if (arr) {
+        arr.sort((a, b) => b.time.localeCompare(a.time));
+        setLocal(arr);
+        arr ? setIsTrue(true) : setIsTrue(false);
+      }
+    };
+
     getLatestScore();
     getData();
   }, []);
