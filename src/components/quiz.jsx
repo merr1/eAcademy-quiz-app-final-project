@@ -20,17 +20,6 @@ const Quiz = () => {
     return data;
   };
 
-  const saveLocal = async () => {
-    const data = await getData();
-    const now = new Date();
-    localStorage.setItem(
-      "data",
-      JSON.stringify({
-        value: data,
-        expiry: now.getTime() + 600000,
-      })
-    );
-  };
   const getLocal = () => {
     const local = localStorage.getItem("data");
     if (!local) {
@@ -44,20 +33,29 @@ const Quiz = () => {
     }
     return data.value;
   };
-  const myQuestions = async () => {
-    if (getLocal() === null) {
-      await saveLocal();
-      console.log("movida");
-      setQuestion(getLocal("data").questions);
-      setAnswer(getLocal("data").answers);
-    } else {
-      setQuestion(getLocal("data").questions);
-      setAnswer(getLocal("data").answers);
-      console.log("iyo");
-    }
-  };
 
   useEffect(() => {
+    const saveLocal = async () => {
+      const data = await getData();
+      const now = new Date();
+      localStorage.setItem(
+        "data",
+        JSON.stringify({
+          value: data,
+          expiry: now.getTime() + 600000,
+        })
+      );
+    };
+    const myQuestions = async () => {
+      if (getLocal() === null) {
+        await saveLocal();
+        setQuestion(getLocal("data").questions);
+        setAnswer(getLocal("data").answers);
+      } else {
+        setQuestion(getLocal("data").questions);
+        setAnswer(getLocal("data").answers);
+      }
+    };
     myQuestions();
   }, []);
 

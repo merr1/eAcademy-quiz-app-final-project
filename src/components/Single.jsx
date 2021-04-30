@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router";
-import { Button, ButtonGroup, Progress } from "reactstrap";
+import { Button, Progress } from "reactstrap";
 
 const Single = ({
   question,
