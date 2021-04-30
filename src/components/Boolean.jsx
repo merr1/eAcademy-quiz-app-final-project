@@ -15,7 +15,7 @@ const Boolean = ({
   const [Selected, setSelected] = useState(null);
   const [next, setNext] = useState(false);
   const check = () => {
-    if (Selected.length !== 0 || Selected) {
+    if (Selected) {
       setNext(!next);
       setIsCorect(Selected === `${answer.answer}` ? "corect" : "notcorect");
     }

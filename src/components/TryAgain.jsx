@@ -22,17 +22,18 @@ const TryAgain = ({ score, question }) => {
       hour12: false,
     });
 
-    arr.unshift({
+    arr.push({
       time: string,
+      date: new Date().getTime(),
       scoree: score,
       question_lengh: question.length,
     });
-    arr.sort(function (a, b) {
-      return b.scoree - a.scoree === 0
-        ? a.time.getTime() - b.time.getTime()
-        : b.scoree - a.scoree;
+
+    let sorted = arr.sort((a, b) => {
+      return b.scoree === a.scoree ? b.date - a.date : b.scoree - a.scoree;
     });
-    localStorage.setItem("myArray", JSON.stringify(arr));
+    console.log(sorted);
+    localStorage.setItem("myArray", JSON.stringify(sorted));
   };
 
   useEffect(() => {
