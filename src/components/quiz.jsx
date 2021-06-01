@@ -5,8 +5,8 @@ import Boolean from "./Boolean";
 import ClipLoader from "react-spinners/SyncLoader";
 import TryAgain from "./TryAgain";
 
-const API_URL =
-  "http://my-json-server.typicode.com/DanielBarbakadze/Advanced-JS-and-React-Basics/db";
+// const API_URL =
+//   "http://my-json-server.typicode.com/DanielBarbakadze/Advanced-JS-and-React-Basics/db";
 
 const Quiz = () => {
   const [question, setQuestion] = useState(null);
@@ -14,11 +14,11 @@ const Quiz = () => {
   const [qurrentId, setQurrentID] = useState(0);
   const [score, setScore] = useState(0);
 
-  const getData = async () => {
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    return data;
-  };
+  // const getData = async () => {
+  //   const response = await fetch(API_URL);
+  //   const data = await response.json();
+  //   return data;
+  // };
 
   const getLocal = () => {
     const local = localStorage.getItem("data");
@@ -35,8 +35,53 @@ const Quiz = () => {
   };
 
   useEffect(() => {
+    const data = {
+      questions: [
+        {
+          id: 1,
+          type: "single",
+          question: "ერთპასუხიანი კითხვა",
+          options: [
+            "სავარაუდო პასუხი 1",
+            "სავარაუდო პასუხი 2",
+            "სავარაუდო პასუხი 3",
+            "სავარაუდო პასუხი 4",
+          ],
+        },
+        {
+          id: 2,
+          type: "multiple",
+          question: "მრავალპასუხიანი კითხვა",
+          options: [
+            "სავარაუდო პასუხი 3",
+            "სავარაუდო პასუხი 1",
+            "სავარაუდო პასუხი 4",
+            "სავარაუდო პასუხი 2",
+          ],
+        },
+        {
+          id: 3,
+          type: "boolean",
+          question: "დისკრეტული კითხვა",
+        },
+      ],
+      answers: [
+        {
+          id: 1,
+          answer: 3,
+        },
+        {
+          id: 2,
+          answer: [2, 4],
+        },
+        {
+          id: 3,
+          answer: true,
+        },
+      ],
+    };
+
     const saveLocal = async () => {
-      const data = await getData();
       const now = new Date();
       localStorage.setItem(
         "data",
